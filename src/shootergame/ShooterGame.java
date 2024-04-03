@@ -28,6 +28,7 @@ public class ShooterGame extends JPanel implements KeyListener, ActionListener {
     private final int PLAYER_WIDTH = 30;
     private final int PLAYER_HEIGHT = 30;
     private final int PADDING = 10;
+    private final int MAX_BULLETS = 7;
     private Rectangle player;
     private Rectangle enemy;
     private Direction direction;
@@ -93,7 +94,7 @@ public class ShooterGame extends JPanel implements KeyListener, ActionListener {
     }
 
     public void shoot() {
-        if (bullets.size() < 7) {
+        if (bullets.size() < MAX_BULLETS) {
             bullets.add(new Rectangle(
                 player.x + PLAYER_WIDTH - PADDING,
                 player.y + PLAYER_HEIGHT / 2 - 2,
