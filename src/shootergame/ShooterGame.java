@@ -53,10 +53,8 @@ public class ShooterGame extends JPanel implements KeyListener, ActionListener {
             PLAYER_WIDTH, PLAYER_HEIGHT);
         bullets = new ArrayList<Rectangle>();
         random = new Random();
-        score = 0;
-        running = true;
+        running = false;
         timer = new Timer(GAME_SPEED, this);
-        timer.start();
     }
 
     @Override
@@ -79,10 +77,10 @@ public class ShooterGame extends JPanel implements KeyListener, ActionListener {
 
     public void move() {
         if (direction == Direction.DOWN &&
-            player.y < HEIGHT - PADDING - PLAYER_HEIGHT) {
+        player.y < HEIGHT - PADDING - PLAYER_HEIGHT) {
             player.y += VELOCITY;
         } else if (direction == Direction.UP &&
-            player.y > PADDING) {
+        player.y > PADDING) {
             player.y -= VELOCITY;
         }
 
@@ -135,17 +133,24 @@ public class ShooterGame extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
-            case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_J:
-                direction = Direction.DOWN;
-                break;
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_K:
-                direction = Direction.UP;
-                break;
-            case KeyEvent.VK_SPACE:
+        case KeyEvent.VK_DOWN:
+        case KeyEvent.VK_J:
+            direction = Direction.DOWN;
+            break;
+        case KeyEvent.VK_UP:
+        case KeyEvent.VK_K:
+            direction = Direction.UP;
+            break;
+        case KeyEvent.VK_SPACE:
+            if (running) {
                 shoot();
-                break;
+            } else {
+                running = true;
+                score = 0;
+                bullets.clear();
+                timer.start();
+            }
+            break;
         }
     }
 
